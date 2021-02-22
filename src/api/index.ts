@@ -9,18 +9,14 @@ export default () => {
 
   const timestamp = Number(new Date());
   const hash = md5.create();
-  hash.update(timestamp + PRIVATE_KEY! + PUBLIC_KEY!);
+  hash.update(timestamp + (PRIVATE_KEY as string) + (PUBLIC_KEY as string));
 
   return axios.create({
-    baseURL: 'https://gateway.marvel.com/v1/public',
+    baseURL: 'http://gateway.marvel.com/v1/public',
     params: {
       ts: timestamp,
       apikey: PUBLIC_KEY,
       hash: hash.hex(),
-    },
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      Accept: '*/*',
     },
     timeout: 10000,
     method: 'get',

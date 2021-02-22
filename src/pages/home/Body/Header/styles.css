@@ -1,0 +1,31 @@
+.search {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 40px 0;
+}
+
+.search input {
+  padding: 10px 15px;
+  border: 1px solid coral;
+  border-radius: 3px;
+  background-color: transparent;
+  outline: none;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.search input:focus {
+  border: 2px solid coral;
+}
+
+@media(min-width: 480px) {
+  .search {
+    flex-direction: row;
+  }
+
+  .search input:first-child {
+    margin-right: 10px;
+  }
+}

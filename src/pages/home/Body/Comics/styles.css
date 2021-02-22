@@ -1,0 +1,37 @@
+.comics-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(1,1fr);
+  justify-items: center;
+  align-items: flex-start;
+  transition: all 0.5s;
+}
+
+.comics-container.empty {
+  grid-template-columns: repeat(1,1fr);
+}
+
+@media(min-width: 480px) {
+  .comics-container {
+    grid-template-columns: repeat(2,1fr);
+    min-height: 450px;
+  }
+}
+
+@media(min-width: 656px) {
+  .comics-container {
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+@media(min-width: 875px) {
+  .comics-container {
+    grid-template-columns: repeat(4,1fr);
+  }
+}
+
+@media(min-width: 1230px) {
+  .comics-container {
+    grid-template-columns: repeat(5,1fr);
+  }
+}

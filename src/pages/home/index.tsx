@@ -1,20 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import api from 'api';
+import React, { useEffect } from 'react';
 
 import Header from './Header';
 import Body from './Body';
 
+import { useComics } from './hooks';
+
 import './styles.css';
 
-const Home = () => {
+const Home = (): JSX.Element => {
+  const {
+    fetchComics,
+    fetchMoreComics,
+    state: { limit, offset, size, comics, total },
+  } = useComics();
+
   useEffect(() => {
-    api().get('');
+    fetchComics({ limit, offset });
   }, []);
+
+  const onSearchPerTitle = (text: string) => {
+    fetchComics({ offset, limit, title: text });
+  };
+
+  const onSearchPerYear = (year?: number) => {
+    fetchComics({ offset, limit, startYear: year });
+  };
+
+  const onSeeMore = () => {
+    fetchMoreComics();
+  };
 
   return (
     <main className="container">
       <Header />
-      <Body />
+      <Body
+        onSearchPerTitle={onSearchPerTitle}
+        onSearchPerYear={onSearchPerYear}
+        onSeeMore={onSeeMore}
+        comics={comics}
+        canSeeMore={size <= total}
+      />
     </main>
   );
 };

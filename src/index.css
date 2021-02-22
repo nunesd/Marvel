@@ -12,6 +12,15 @@ code {
     monospace;
 }
 
-h1 {
+h1, h2, p {
   font-family: 'Marvel';
+}
+
+.ReactModal__Content {
+  height: fit-content;
+  max-width: 500px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }

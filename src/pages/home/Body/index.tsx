@@ -1,15 +1,31 @@
-import React, { FC } from 'react';
+import React from 'react';
+
+import Header from './Header';
+import Comics from './Comics';
+
+import { BodyProps } from './types';
 
 import './styles.css';
 
-const Body = () => {
+const Body = ({
+  onSearchPerTitle,
+  onSearchPerYear,
+  onSeeMore,
+  comics,
+  canSeeMore,
+}: BodyProps): JSX.Element => {
   return (
-    <section className="container">
-      <header className="search">
-        <div className="input-wrapper">
-          <input type="text" placeholder="Pesquisar quadrinho" />
-        </div>
-      </header>
+    <section className="body-container">
+      <Header
+        onSearchPerTitle={onSearchPerTitle}
+        onSearchPerYear={onSearchPerYear}
+      />
+      <Comics comics={comics} />
+      <div className="button-container">
+        {!!comics?.length && canSeeMore && (
+          <button onClick={onSeeMore}>Ver Mais</button>
+        )}
+      </div>
     </section>
   );
 };
