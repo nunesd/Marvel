@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import api from 'api';
+import axios from 'axios';
 
 import {
   StateType,
@@ -12,7 +13,7 @@ import {
 } from './types';
 import { getFormattedComics, getUrl } from './utils';
 
-export const useComics: UseComicsType = () => {
+export const useComics: UseComicsType = props => {
   const [state, setState] = useState<StateType>({
     limit: 20,
     offset: 0,
@@ -24,13 +25,17 @@ export const useComics: UseComicsType = () => {
   const fetchData: fetchDataType = async params => {
     const url = getUrl(params);
 
-    const {
-      data: {
-        data: { results, total, limit, offset },
-      },
-    } = await api().get(url);
+    try {
+      const {
+        data: {
+          data: { results, total, limit, offset },
+        },
+      } = await api({ ...params, url });
 
-    return { results, total, limit, offset } as RequestResponse;
+      return { results, total, limit, offset } as RequestResponse;
+    } catch (e) {
+      return { ...state, results: [] };
+    }
   };
 
   const fetchComics: fetchType = async params => {
@@ -56,24 +61,6 @@ export const useComics: UseComicsType = () => {
   };
 
   const fetchMoreComics: fetchMoreType = async () => {
-    // const { results, total, limit, offset } = await fetchData({
-    //   limit: 20,
-    //   offset: state.offset + state.limit,
-    //   title: state.title,
-    //   startYear: state.startYear,
-    // });
-
-    // const comics = getFormattedComics(results);
-
-    // setState(state => ({
-    //   ...state,
-    //   comics,
-    //   size: comics.length,
-    //   total,
-    //   limit,
-    //   offset,
-    // }));
-
     fetchComics({
       limit: 20,
       offset: state.offset + state.limit,

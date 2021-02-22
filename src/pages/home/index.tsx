@@ -6,13 +6,14 @@ import Body from './Body';
 import { useComics } from './hooks';
 
 import './styles.css';
+import { HomeType } from './types';
 
-const Home = (): JSX.Element => {
+const Home = (props: HomeType): JSX.Element => {
   const {
     fetchComics,
     fetchMoreComics,
     state: { limit, offset, size, comics, total },
-  } = useComics();
+  } = useComics(props);
 
   useEffect(() => {
     fetchComics({ limit, offset });
@@ -31,7 +32,7 @@ const Home = (): JSX.Element => {
   };
 
   return (
-    <main className="container">
+    <main className="container" data-testid="container">
       <Header />
       <Body
         onSearchPerTitle={onSearchPerTitle}

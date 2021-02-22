@@ -10,6 +10,7 @@ const Comic = ({ isDetail, onClick, ...comic }: ComicType): JSX.Element => {
   return (
     <div
       className={`comic-container${!isDetail ? ' list' : ''}`}
+      data-testid={`comic-container-${id}`}
       onClick={() => onClick && onClick(comic)}
     >
       <img src={img} alt={title} />

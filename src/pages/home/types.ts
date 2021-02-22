@@ -1,5 +1,11 @@
 import { ComicDataType } from './Body/Comics/Comic/types';
 
+export type HomeType = {
+  publicKey?: string;
+  privateKey?: string;
+  time?: string;
+};
+
 export type RequestResponse = {
   results: Array<any>;
   total: number;
@@ -26,7 +32,9 @@ export type fetchMoreType = () => void;
 
 export type fetchDataType = (params: ParamsType) => Promise<RequestResponse>;
 
-export type UseComicsType = () => {
+export type UseComicsType = (
+  props: HomeType,
+) => {
   fetchComics: fetchType;
   fetchMoreComics: fetchMoreType;
   state: StateType;

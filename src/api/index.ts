@@ -1,17 +1,28 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import md5 from 'js-md5';
 
-export default () => {
+import { HomeType } from './../pages/home/types';
+
+export default ({
+  publicKey,
+  privateKey,
+  time,
+  url,
+}: HomeType & { url: string }): Promise<AxiosResponse<any>> => {
   const {
     REACT_APP_PUBLIC_KEY: PUBLIC_KEY,
     REACT_APP_PRIVATE_KEY: PRIVATE_KEY,
   } = process.env;
 
-  const timestamp = Number(new Date());
+  const timestamp = time || Number(new Date());
   const hash = md5.create();
-  hash.update(timestamp + (PRIVATE_KEY as string) + (PUBLIC_KEY as string));
+  hash.update(
+    timestamp +
+      (privateKey || (PRIVATE_KEY as string)) +
+      (publicKey || (PUBLIC_KEY as string)),
+  );
 
-  return axios.create({
+  return axios.get(url, {
     baseURL: 'http://gateway.marvel.com/v1/public',
     params: {
       ts: timestamp,

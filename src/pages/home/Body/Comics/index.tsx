@@ -22,7 +22,10 @@ const Comics = ({ comics }: ComicsType): JSX.Element => {
   };
 
   return (
-    <div className={`comics-container${!comics?.length ? ' empty' : ''}`}>
+    <div
+      className={`comics-container${!comics?.length ? ' empty' : ''}`}
+      data-testid={comics?.length ? 'comics-container' : 'empty'}
+    >
       {comics?.length ? (
         comics.map(comic => (
           <Comic
@@ -35,7 +38,11 @@ const Comics = ({ comics }: ComicsType): JSX.Element => {
       ) : (
         <h3>Não há quadrinhos disponíveis</h3>
       )}
-      <Modal isOpen={isOpen} onRequestClose={() => toggleModal(false)}>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => toggleModal(false)}
+        contentLabel="detalhe do quadrinho"
+      >
         {modalComic && (
           <Comic {...modalComic} isDetail onClick={onClickComic} />
         )}
