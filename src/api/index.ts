@@ -23,7 +23,7 @@ export default ({
   );
 
   return axios.get(url, {
-    baseURL: 'http://gateway.marvel.com/v1/public',
+    baseURL: 'https://gateway.marvel.com/v1/public',
     params: {
       ts: timestamp,
       apikey: PUBLIC_KEY,
